@@ -54,14 +54,14 @@ export default function BeautifulMemories() {
         ))}
       </div>
       <motion.h2
-        className="font-satisfy text-5xl md:text-6xl text-pink-800 mb-12 relative z-10"
+        className="font-satisfy text-3xl md:text-3xl sm:text-3xl text-pink-800 mb-40 relative z-10"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
         Our <span className="text-pink-600">Beautiful</span> Memories
       </motion.h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 z-10">
+      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-6 px-4 z-10">
         {images.map((src, i) => (
           <motion.div
             key={i}

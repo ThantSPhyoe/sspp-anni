@@ -27,7 +27,7 @@ export default function SpecialMessage() {
     }, [sizes.w]);
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-400 via-pink-400 to-pink-500 text-center p-8 overflow-hidden">
+        <div className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-400 via-pink-400 to-pink-500 p-8 overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
                 {floatHearts.map((h) => (
                     <motion.span
@@ -46,7 +46,7 @@ export default function SpecialMessage() {
                 ))}
             </div>
             <motion.div
-                className="bg-white/10 backdrop-blur-md text-white max-w-2xl p-10 rounded-3xl shadow-2xl border border-white/20 z-10"
+                className="bg-white/10 backdrop-blur-md text-white max-w-2xl p-10 rounded-3xl shadow-2xl border border-white/20 z-10 text-center"
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1 }}

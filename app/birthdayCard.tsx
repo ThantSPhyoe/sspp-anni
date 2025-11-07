@@ -1,4 +1,3 @@
-// ...existing code...
 "use client";
 
 import { motion } from "framer-motion";
@@ -9,7 +8,6 @@ export default function BirthdayCard() {
   const [popHearts, setPopHearts] = useState(false);
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
 
-  // set viewport sizes on mount and on resize (only runs in browser)
   useEffect(() => {
     function update() {
       setSizes({ w: window.innerWidth, h: window.innerHeight });
@@ -19,13 +17,12 @@ export default function BirthdayCard() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // create deterministic randomized data only after we know the width/height
   const floatHearts = useMemo(() => {
     const width = sizes.w || 800;
     return Array.from({ length: 12 }).map((_, i) => ({
       id: `float-${i}`,
       x: Math.random() * width,
-      delay: i * 0.5 + Math.random() * 0.3,
+      delay: i * 0.5 + Math.random() * 0.2,
       duration: 4 + Math.random() * 3,
     }));
   }, [sizes.w]);
@@ -49,14 +46,14 @@ export default function BirthdayCard() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 text-center relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400  py-16 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         {floatHearts.map((h) => (
           <motion.span
             key={h.id}
             className="absolute text-pink-400 text-2xl"
             initial={{ opacity: 0, y: 100, x: h.x }}
-            animate={{ opacity: [0.6, 1, 0], y: -100 }}
+            animate={{ opacity: [0.5, 1, 0], y: -100 }}
             transition={{ duration: h.duration, repeat: Infinity, delay: h.delay }}
           >
             ❤️
@@ -96,7 +93,7 @@ export default function BirthdayCard() {
         ))}
 
       <motion.h1
-        className="text-4xl md:text-5xl font-satisfy text-pink-800 mb-3 z-10"
+        className="text-4xl md:text-5xl font-satisfy text-pink-800 mb-3 z-10 text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
@@ -105,7 +102,7 @@ export default function BirthdayCard() {
       </motion.h1>
 
       <motion.p
-        className="text-lg text-pink-900 mb-8 z-10"
+        className="text-lg text-pink-900 mb-8 z-10 text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8, duration: 1 }}
@@ -114,7 +111,7 @@ export default function BirthdayCard() {
       </motion.p>
       <motion.button
         onClick={handleCelebrate}
-        className="px-6 py-3 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-pink-300 transition-transform duration-300 z-10"
+        className="px-6 py-3 bg-gradient-to-r from-pink-400 to-pink-500 text-white rounded-full font-semibold shadow-lg hover:shadow-pink-300 transition-transform duration-300 z-10 text-center"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
       >
@@ -131,4 +128,3 @@ export default function BirthdayCard() {
     </div>
   );
 }
-// ...existing code...
