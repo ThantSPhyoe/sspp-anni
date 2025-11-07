@@ -1,11 +1,47 @@
+// ...existing code...
 "use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function BirthdayCard() {
   const [popHearts, setPopHearts] = useState(false);
+  const [sizes, setSizes] = useState({ w: 0, h: 0 });
+
+  // set viewport sizes on mount and on resize (only runs in browser)
+  useEffect(() => {
+    function update() {
+      setSizes({ w: window.innerWidth, h: window.innerHeight });
+    }
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  // create deterministic randomized data only after we know the width/height
+  const floatHearts = useMemo(() => {
+    const width = sizes.w || 800;
+    return Array.from({ length: 12 }).map((_, i) => ({
+      id: `float-${i}`,
+      x: Math.random() * width,
+      delay: i * 0.5 + Math.random() * 0.3,
+      duration: 4 + Math.random() * 3,
+    }));
+  }, [sizes.w]);
+
+  const popHeartsData = useMemo(() => {
+    const width = sizes.w || 800;
+    const height = sizes.h || 600;
+    return Array.from({ length: 100 }).map((_, i) => ({
+      id: `balloon-${i}`,
+      xOffset: (Math.random() - 0.5) * width,
+      duration: 4 + Math.random() * 2,
+      scaleStart: 0.95,
+      delay: Math.random() * 0.5,
+      endY: -height - 200,
+    }));
+  }, [sizes.w, sizes.h]);
 
   const handleCelebrate = () => {
     setPopHearts(true);
@@ -15,24 +51,13 @@ export default function BirthdayCard() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-200 via-pink-300 to-pink-400 text-center relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
-        {Array.from({ length: 12 }).map((_, i) => (
+        {floatHearts.map((h) => (
           <motion.span
-            key={`float-${i}`}
+            key={h.id}
             className="absolute text-pink-400 text-2xl"
-            initial={{
-              opacity: 0,
-              y: 100,
-              x: Math.random() * window.innerWidth,
-            }}
-            animate={{
-              opacity: [0.6, 1, 0],
-              y: -100,
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: i * 0.5,
-            }}
+            initial={{ opacity: 0, y: 100, x: h.x }}
+            animate={{ opacity: [0.6, 1, 0], y: -100 }}
+            transition={{ duration: h.duration, repeat: Infinity, delay: h.delay }}
           >
             ❤️
           </motion.span>
@@ -40,26 +65,23 @@ export default function BirthdayCard() {
       </div>
 
       {popHearts &&
-        Array.from({ length: 100 }).map((_, i) => (
+        popHeartsData.map((p) => (
           <motion.div
-            key={`balloon-${i}`}
+            key={p.id}
             className="absolute bottom-0 left-1/2"
             initial={{
               opacity: 0,
-              scale: 0.95,
-              x: Math.random() * window.innerWidth - window.innerWidth / 2,
+              scale: p.scaleStart,
+              x: p.xOffset,
               y: 0,
             }}
             animate={{
               opacity: [1, 1, 0],
               scale: [1, 1.1, 0.9],
-              y: -window.innerHeight - 200,
-              x: (Math.random() - 0.5) * 200,
+              y: p.endY,
+              x: p.xOffset + (Math.random() - 0.5) * 200,
             }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              ease: "easeOut",
-            }}
+            transition={{ duration: p.duration, ease: "easeOut", delay: p.delay }}
           >
             <div className="w-24 h-24 heart-shape overflow-hidden shadow-lg border-2 border-pink-300 bg-white">
               <Image
@@ -109,3 +131,4 @@ export default function BirthdayCard() {
     </div>
   );
 }
+// ...existing code...
