@@ -11,6 +11,7 @@ const satisfy = Satisfy({
 export const metadata: Metadata = {
   title: "Happy birhthday, Beautiful!",
   description: "A lovely birthday greeting page",
+  icons: "window.svg"
 };
 
 export default function RootLayout({

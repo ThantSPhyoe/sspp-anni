@@ -80,12 +80,11 @@ export default function BirthdayCard() {
             }}
             transition={{ duration: p.duration, ease: "easeOut", delay: p.delay }}
           >
-            <div className="w-24 h-24 heart-shape overflow-hidden shadow-lg border-2 border-pink-300 bg-white">
+            <div className="w-[50px] h-[50px] heart-shape overflow-hidden shadow-lg border-2 border-pink-300 bg-white">
               <Image
                 src="/wifi2.jpg"
                 alt="heart photo"
-                width={150}
-                height={200}
+                fill
                 className="object-cover w-full h-full"
               />
             </div>
@@ -119,12 +118,12 @@ export default function BirthdayCard() {
       </motion.button>
 
       <style jsx>{`
-        .heart-shape {
-          clip-path: path(
-            "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-          );
-        }
-      `}</style>
+  .heart-shape {
+    clip-path: path(
+      "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+    );
+  }
+`}</style>
     </div>
   );
 }
