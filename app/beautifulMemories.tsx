@@ -1,19 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
+import data from "./information/data.json";
+import PopUpModal from "./model/popModal";
 
 export default function BeautifulMemories() {
-  const images = [
-    "https://www.pinterest.com/pin/999588079802216071/",
-    "https://www.pinterest.com/pin/999588079802216071/",
-    "https://www.pinterest.com/pin/999588079802216071/",
-    "https://www.pinterest.com/pin/999588079802216071/",
-    "https://www.pinterest.com/pin/999588079802216071/",
-    "https://www.pinterest.com/pin/999588079802216071/",
-  ];
-
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
+  const [selectedMemory, setSelectedMemory] = useState<null | {
+    id: number;
+    images: string[];
+    name: string;
+    caption: string;
+  }>(null);
 
   useEffect(() => {
     function update() {
@@ -61,23 +60,37 @@ export default function BeautifulMemories() {
       >
         Our <span className="text-pink-600">Beautiful</span> Memories
       </motion.h2>
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 gap-6 px-4 z-10">
-        {images.map((src, i) => (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6 px-4 z-10">
+        {data.memories.map((memo) => (
           <motion.div
-            key={i}
-            className="rounded-2xl overflow-hidden shadow-lg bg-white"
+            key={memo.id}
+            className="rounded-2xl overflow-hidden shadow-lg bg-white cursor-pointer hover:shadow-pink-300 transition-all duration-300"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
+            transition={{ delay: memo.id * 0.1 }}
+            onClick={() =>
+              setSelectedMemory({
+                id: memo.id,
+                images: memo.image_path,
+                name: memo.name,
+                caption: memo.caption,
+              })
+            }
           >
             <img
-              src={src}
-              alt={`Memory ${i + 1}`}
-              className="w-full h-64 object-cover grayscale hover:grayscale-0 transition-all duration-500"
+              src={memo.cover_path}
+              alt={`Memory ${memo.id + 1}`}
+              className="w-full h-64 object-cover hover:grayscale-0 transition-all duration-500"
             />
+            <div className="p-3">
+              <h3 className="font-satisfy text-lg font-semibold text-pink-600">
+                {memo.name}
+              </h3>
+            </div>
           </motion.div>
         ))}
       </div>
+      <PopUpModal selectedMemory={selectedMemory} setSelectedMemory={setSelectedMemory} />
     </div>
   );
 }

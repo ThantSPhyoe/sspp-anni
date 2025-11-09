@@ -6,24 +6,24 @@ const satisfy = Satisfy({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-satisfy",
-})
+});
 
 export const metadata: Metadata = {
-  title: "Happy birhthday, Beautiful!",
+  title: "Happy birthday, Beautiful!",
   description: "A lovely birthday greeting page",
-  icons: "window.svg"
+  icons: {
+    icon: "/cover/logo.jpg",
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${satisfy.variable} ${satisfy.variable} antialiased`}
-      >
+      <body className={`${satisfy.variable} antialiased`}>
         {children}
       </body>
     </html>

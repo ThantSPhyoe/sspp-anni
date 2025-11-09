@@ -80,14 +80,15 @@ export default function BirthdayCard() {
             }}
             transition={{ duration: p.duration, ease: "easeOut", delay: p.delay }}
           >
-            <div className="w-[50px] h-[50px] heart-shape overflow-hidden shadow-lg border-2 border-pink-300 bg-white">
+            {/* <div className="w-[50px] h-[50px] heart-shape overflow-hidden shadow-lg border-2 border-pink-300 bg-white">
               <Image
-                src="/wifi2.jpg"
+                src="/bubble/bubble.jpg"
                 alt="heart photo"
                 fill
                 className="object-cover w-full h-full"
               />
-            </div>
+            </div> */}
+            🎈
           </motion.div>
         ))}
 
