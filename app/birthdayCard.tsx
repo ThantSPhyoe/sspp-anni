@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 export default function BirthdayCard() {
@@ -98,7 +97,7 @@ export default function BirthdayCard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        Happy Birthday, Beautiful!
+        Happy 12th Anniversary, Beautiful!
       </motion.h1>
 
       <motion.p

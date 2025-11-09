@@ -9,8 +9,8 @@ const satisfy = Satisfy({
 });
 
 export const metadata: Metadata = {
-  title: "Happy birthday, Beautiful!",
-  description: "A lovely birthday greeting page",
+  title: "12th Anniversary Celebration",
+  description: "A special celebration for my beloved on our 12th anniversary.",
   icons: {
     icon: "/cover/logo.jpg",
   },
