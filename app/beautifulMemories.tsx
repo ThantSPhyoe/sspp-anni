@@ -1,12 +1,13 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import data from "./information/data.json";
 import PopUpModal from "./model/popModal";
 
 export default function BeautifulMemories() {
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
+  const [floatHearts, setFloatHearts] = useState<floatHearts[]>([]);
   const [selectedMemory, setSelectedMemory] = useState<null | {
     id: number;
     images: string[];
@@ -22,16 +23,17 @@ export default function BeautifulMemories() {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
-
-  const floatHearts = useMemo(() => {
+  
+  useEffect(() => {
     const width = sizes.w || 800;
-    return Array.from({ length: 10 }).map((_, i) => ({
+    const newFloatHeart =  Array.from({ length: 10 }).map((_, i) => ({
       id: `mem-heart-${i}`,
       x: Math.random() * width,
       duration: 4 + Math.random() * 3,
       delay: i * 0.5 + Math.random() * 0.2,
     }));
-  }, [sizes.w]);
+    setFloatHearts(newFloatHeart);
+  },[sizes.w]);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-pink-100 to-pink-200 flex flex-col items-center justify-center py-16 overflow-hidden">

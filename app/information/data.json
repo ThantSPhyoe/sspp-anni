@@ -86,10 +86,10 @@
                 "/memo/food/yooganae-mm.jpg"
             ]
         },
-
+        
         {
             "id": 6,
-            "name": "Various Date",
+            "name": "ERROR_404",
             "cover_path": "/memo/various/eye_off_cat.JPG",
             "caption": "Mingalarpar",
             "image_path": [

@@ -2,7 +2,7 @@
 
 import BeautifulMemories from "./beautifulMemories";
 import BirthdayCard from "./birthdayCard";
-import ChangePhoto from "./changePhoto";
+import ChangePhoto from "./movingPhoto";
 import SpecialMessage from "./SpecialMessage";
 
 export default function BirthdayPage() {

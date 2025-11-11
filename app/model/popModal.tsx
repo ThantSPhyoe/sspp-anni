@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface Memo {
   id: number;
@@ -46,6 +46,7 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
   const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setSelectedMemory(null);
+      setCurrent(0);
     }
   };
 
@@ -66,7 +67,7 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handleBackgroundClick}
-          >
+        >
           <motion.div
             className="bg-white rounded-2xl overflow-hidden shadow-2xl max-w-3xl w-full relative"
             initial={{ scale: 0.8, opacity: 0 }}
@@ -75,7 +76,10 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
             transition={{ duration: 0.3 }}
           >
             <button
-              onClick={() => setSelectedMemory(null)}
+              onClick={() => {
+                setSelectedMemory(null);
+                setCurrent(0);
+              }}
               className="absolute top-3 right-4 text-pink-600 text-2xl font-bold hover:text-pink-800 z-20"
             >
               ×
@@ -96,13 +100,12 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
                     key={index}
                     src={src}
                     alt={`Memory ${index + 1}`}
-                    className={`absolute inset-0 w-full h-full object-contain bg-pink-600 flex justify-center items-center transition-transform duration-700 ease-in-out ${
-                      index === current
+                    className={`absolute inset-0 w-full h-full object-contain bg-pink-600 flex justify-center items-center transition-transform duration-700 ease-in-out ${index === current
                         ? "translate-x-0"
                         : index < current
-                        ? "-translate-x-full"
-                        : "translate-x-full"
-                    } group-hover:scale-105`}
+                          ? "-translate-x-full"
+                          : "translate-x-full"
+                      } group-hover:scale-105`}
                     initial={false}
                     animate={{
                       background: gradients[current % gradients.length],
@@ -127,9 +130,8 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
                     <button
                       key={i}
                       onClick={() => setCurrent(i)}
-                      className={`w-3 h-3 rounded-full ${
-                        current === i ? "bg-white" : "bg-white/50"
-                      }`}
+                      className={`w-3 h-3 rounded-full ${current === i ? "bg-white" : "bg-white/50"
+                        }`}
                     />
                   ))}
                 </div>

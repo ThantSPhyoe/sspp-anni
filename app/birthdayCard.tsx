@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function BirthdayCard() {
   const [popHearts, setPopHearts] = useState(false);
+  const [floatHearts, setFloatHearts] = useState<floatHearts[]>([]);
+  const [popHeartsData, setPopHeartsData] = useState<PopHeart[]>([]);
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
 
   useEffect(() => {
@@ -16,20 +18,21 @@ export default function BirthdayCard() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const floatHearts = useMemo(() => {
+  useEffect(() => {
     const width = sizes.w || 800;
-    return Array.from({ length: 12 }).map((_, i) => ({
-      id: `float-${i}`,
+    const newHearts = Array.from({ length: 10 }).map((_, i) => ({
+      id: `mem-heart-${i}`,
       x: Math.random() * width,
-      delay: i * 0.5 + Math.random() * 0.2,
       duration: 4 + Math.random() * 3,
+      delay: i * 0.5 + Math.random() * 0.2,
     }));
+    setFloatHearts(newHearts);
   }, [sizes.w]);
 
-  const popHeartsData = useMemo(() => {
+  useEffect(() => {
     const width = sizes.w || 800;
     const height = sizes.h || 600;
-    return Array.from({ length: 100 }).map((_, i) => ({
+    const newPopHeart = Array.from({ length: 100 }).map((_, i) => ({
       id: `balloon-${i}`,
       xOffset: (Math.random() - 0.5) * width,
       duration: 4 + Math.random() * 2,
@@ -37,7 +40,8 @@ export default function BirthdayCard() {
       delay: Math.random() * 0.5,
       endY: -height - 200,
     }));
-  }, [sizes.w, sizes.h]);
+    setPopHeartsData(newPopHeart);
+  },[sizes.w, sizes.h]);
 
   const handleCelebrate = () => {
     setPopHearts(true);
