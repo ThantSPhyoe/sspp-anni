@@ -11,7 +11,7 @@
   width: 200px;
   height: 200px;
   transform-style: preserve-3d;
-  animation: rotate 15s linear infinite;
+  animation: rotate 30s linear infinite;
   --translateZ: 300px;
   --translateZ-selected: 350px;
 }
@@ -43,7 +43,6 @@
   }
 }
 
-/* Small screens (sm) */
 @media (max-width: 640px) {
   .ring {
     width: 100px;

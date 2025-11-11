@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "12th Anniversary Celebration",
   description: "A special celebration for my beloved on our 12th anniversary.",
   icons: {
-    icon: "/cover/logo.jpg",
+    icon: "/cover/one-eye-off.jpg",
   },
 };
 
