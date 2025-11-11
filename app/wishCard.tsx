@@ -114,7 +114,7 @@ export default function BirthdayCard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        Happy 12th Anniversary, Beautiful!
+        Happy 12th Anniversary, My Baby!
       </motion.h1>
 
       <motion.p

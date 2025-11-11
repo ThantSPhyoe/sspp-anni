@@ -4,6 +4,7 @@ import BeautifulMemories from "./beautifulMemories";
 import BirthdayCard from "./wishCard";
 import ChangePhoto from "./movingPhoto";
 import SpecialMessage from "./specialMessage";
+import RingCarousel from "./carrousel";
 
 export default function BirthdayPage() {
   return (
@@ -12,6 +13,7 @@ export default function BirthdayPage() {
       <BeautifulMemories />
       <ChangePhoto />
       <SpecialMessage />
+      <RingCarousel /> 
     </>
   )
 }

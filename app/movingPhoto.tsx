@@ -2,18 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import photos from "./information/moving.json";
+import styles from "./styles.module.css";
+import images from "./information/moving.json";
 
-interface Photo {
-  photos: string[];
-}
 
 export default function ChangePhoto() {
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
   const [floatHearts, setFloatHearts] = useState<floatHearts[]>([]);
-  const [index, setIndex] = useState(0);
-  var data: Photo = photos;
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const handleClick = (index: number) => {
+    if (selectedIndex === index) {
+      setSelectedIndex(null);
+    } else {
+      setSelectedIndex(index);
+    }
+  };
 
   useEffect(() => {
     function update() {
@@ -26,18 +30,14 @@ export default function ChangePhoto() {
 
   useEffect(() => {
     const width = sizes.w || 800;
-    const newFloatHeart =  Array.from({ length: 10 }).map((_, i) => ({
+    const newFloatHeart = Array.from({ length: 10 }).map((_, i) => ({
       id: `mem-heart-${i}`,
       x: Math.random() * width,
       duration: 4 + Math.random() * 3,
       delay: i * 0.5 + Math.random() * 0.2,
     }));
     setFloatHearts(newFloatHeart);
-  },[sizes.w]);
-
-  const handleClick = () => {
-    setIndex((prev) => (prev + 1) % data.photos.length);
-  };
+  }, [sizes.w]);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-pink-100 to-pink-200 flex flex-col items-center justify-center py-16 overflow-hidden">
@@ -64,29 +64,53 @@ export default function ChangePhoto() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        Every click reveals a piece of my <span className="text-pink-600">heart 💖</span>
+        My heart keeps turning for <span className="text-pink-600">you 💞</span>
       </motion.h2>
-      <motion.div
-        className="relative w-90 h-90 cursor-pointer p-2"
-        animate={{
-          rotateY: [0, 180, 0],
+      <div
+        className={styles.ring}
+        style={{
+          animationPlayState: selectedIndex !== null ? "paused" : "running",
         }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-        }}
-        onClick={handleClick}
       >
-        <Image
-          src={data.photos[index]}
-          alt="heart photo"
-          fill
-          loading="eager"
-          sizes="(max-width: 600px) 100vw, 180px"
-          className="w-[90%] h-[90%] md:w-[180px] md:h-[180px] sm:w-[200px] sm:h-[200px] overflow-hidden shadow-lg border-2 border-pink-300 bg-white justify-center object-cover border-radius: 20px"
-        />
+        {images.photos.map((src, index) => {
+          const isSelected = selectedIndex === index;
+          return (
+            <div
+              key={index}
+              className={styles.item}
+              style={{
+                "--i": index,
+                transform: isSelected
+                  ? `rotateY(calc(${index} * 45deg)) translateZ(var(--translateZ-selected)) translateY(-30px)`
+                  : `rotateY(calc(${index} * 45deg)) translateZ(var(--translateZ))`,
+              } as React.CSSProperties}
+              onClick={() => handleClick(index)}
+            >
+              <motion.img
+                src={src}
+                alt={`moving ${index}`}
+                className="border-4 border-pink-400 rounded-xl p-1 shadow-lg object-cover"
+              />
+            </div>
+          );
+        })}
+      </div>
 
-      </motion.div>
+      {selectedIndex !== null && (
+        <motion.div
+          className="mt-12 flex justify-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.img
+            src={images.photos[selectedIndex]}
+            alt={`Selected ${selectedIndex}`}
+            className="w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-2xl border-4 border-pink-500 p-2 shadow-2xl object-cover bg-white"
+          />
+        </motion.div>
+      )}
+
     </div>
   );
 }
