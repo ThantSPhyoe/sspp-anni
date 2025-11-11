@@ -1,22 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import styles from "./styles.module.css";
 import images from "./information/moving.json";
 
-
 export default function ChangePhoto() {
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
-  const [floatHearts, setFloatHearts] = useState<floatHearts[]>([]);
+  const [floatHearts, setFloatHearts] = useState<any[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+  const rotationY = useMotionValue(0);
+
   const handleClick = (index: number) => {
-    if (selectedIndex === index) {
-      setSelectedIndex(null);
-    } else {
-      setSelectedIndex(index);
-    }
+    setSelectedIndex(selectedIndex === index ? null : index);
   };
 
   useEffect(() => {
@@ -58,6 +55,7 @@ export default function ChangePhoto() {
           </motion.span>
         ))}
       </div>
+
       <motion.h2
         className="font-satisfy text-3xl md:text-3xl sm:text-3xl text-pink-800 mb-12 relative z-10 text-center p-2"
         initial={{ opacity: 0, y: -30 }}
@@ -66,10 +64,15 @@ export default function ChangePhoto() {
       >
         My heart keeps turning for <span className="text-pink-600">you 💞</span>
       </motion.h2>
-      <div
+
+      <motion.div
         className={styles.ring}
-        style={{
-          animationPlayState: selectedIndex !== null ? "paused" : "running",
+        style={{ rotateY: rotationY }}
+        drag="x"
+        dragConstraints={{ left: -1000, right: 1000 }}
+        dragElastic={0.3}
+        onDrag={(e, info) => {
+          rotationY.set(rotationY.get() + info.delta.x);
         }}
       >
         {images.photos.map((src, index) => {
@@ -94,7 +97,7 @@ export default function ChangePhoto() {
             </div>
           );
         })}
-      </div>
+      </motion.div>
 
       {selectedIndex !== null && (
         <motion.div
@@ -110,7 +113,6 @@ export default function ChangePhoto() {
           />
         </motion.div>
       )}
-
     </div>
   );
 }
