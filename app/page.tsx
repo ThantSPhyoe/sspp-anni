@@ -1,9 +1,9 @@
 'use client';
 
 import BeautifulMemories from "./beautifulMemories";
-import BirthdayCard from "./birthdayCard";
+import BirthdayCard from "./wishCard";
 import ChangePhoto from "./movingPhoto";
-import SpecialMessage from "./SpecialMessage";
+import SpecialMessage from "./specialMessage";
 
 export default function BirthdayPage() {
   return (

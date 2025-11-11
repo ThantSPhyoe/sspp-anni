@@ -59,7 +59,7 @@ export default function ChangePhoto() {
         ))}
       </div>
       <motion.h2
-        className="font-satisfy text-4xl text-pink-800 mb-12 relative z-10 text-center"
+        className="font-satisfy text-3xl md:text-3xl sm:text-3xl text-pink-800 mb-12 relative z-10 text-center p-2"
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
@@ -67,7 +67,7 @@ export default function ChangePhoto() {
         Every click reveals a piece of my <span className="text-pink-600">heart 💖</span>
       </motion.h2>
       <motion.div
-        className="relative w-96 h-96 cursor-pointer"
+        className="relative w-90 h-90 cursor-pointer p-2"
         animate={{
           rotateY: [0, 180, 0],
         }}
@@ -82,8 +82,8 @@ export default function ChangePhoto() {
           alt="heart photo"
           fill
           loading="eager"
-          sizes="(max-width: 768px) 100vw, 200px"
-          className="w-full h-full md:w-[200px] md:h-[200px] overflow-hidden shadow-lg border-2 border-pink-300 bg-white justify-center object-cover border-radius: 20px"
+          sizes="(max-width: 600px) 100vw, 180px"
+          className="w-[90%] h-[90%] md:w-[180px] md:h-[180px] sm:w-[200px] sm:h-[200px] overflow-hidden shadow-lg border-2 border-pink-300 bg-white justify-center object-cover border-radius: 20px"
         />
 
       </motion.div>
