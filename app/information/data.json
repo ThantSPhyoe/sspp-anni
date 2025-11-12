@@ -132,12 +132,25 @@
         {
             "id": 7,
             "name": "Messages",
-            "cover_path": "/memo/messages/back.jpg",
+            "cover_path": "/memo/messages/msg-cover.jpg",
             "caption": "The Messages between us that I want to keep forever.",
             "auth": "false",
             "password": "",
             "image_path": [
-                "/memo/messages/love.PNG"
+                "/memo/messages/love.PNG",
+                "/memo/messages/1st.jpg",
+                "/memo/messages/2nd.jpg",
+                "/memo/messages/3rd.jpg",
+                "/memo/messages/4th.jpg",
+                "/memo/messages/5th.jpg",
+                "/memo/messages/6th.jpg",
+                "/memo/messages/7th.jpg",
+                "/memo/messages/8th.jpg",
+                "/memo/messages/9th.jpg",
+                "/memo/messages/10th.jpg",
+                "/memo/messages/11th.jpg",
+                "/memo/messages/12th.jpg",
+                "/memo/messages/1y2th.jpg"
             ]
         }
     ]
