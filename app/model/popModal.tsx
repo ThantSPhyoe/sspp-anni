@@ -3,13 +3,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 
-interface Memo {
-  id: number;
-  images: string[];
-  name: string;
-  caption: string;
-}
-
 interface ModalProps {
   selectedMemory: Memo | null;
   setSelectedMemory: (value: Memo | null) => void;
@@ -19,7 +12,20 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
   const [current, setCurrent] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [inputPassword, setInputPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setCurrent(0);
+    setInputPassword("");
+    setError(null);
+    setIsUnlocked(false);
+  }, [selectedMemory]);
+
   if (!selectedMemory) return null;
+
+  const locked = selectedMemory.auth === true || selectedMemory.auth === "true";
 
   const handleNext = () => {
     setCurrent((prev) => (prev + 1) % selectedMemory.images.length);
@@ -45,9 +51,16 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
 
   const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
-      setSelectedMemory(null);
-      setCurrent(0);
+      close();
     }
+  };
+
+  const close = () => {
+    setSelectedMemory(null);
+    setCurrent(0);
+    setIsUnlocked(false);
+    setInputPassword("");
+    setError(null);
   };
 
   const gradients = [
@@ -56,6 +69,22 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
     "linear-gradient(to bottom right, #fde68a, #fbcfe8)",
     "linear-gradient(to bottom right, #fce7f3, #fbcfe8)"
   ];
+
+  const attemptUnlock = () => {
+    setError(null);
+    const correct = (selectedMemory.password ?? "").trim();
+    if (inputPassword.trim() === correct && correct !== "") {
+      setIsUnlocked(true);
+      setInputPassword("");
+      setError(null);
+    } else {
+      setError("Incorrect password");
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") attemptUnlock();
+  };
 
   return (
     <AnimatePresence mode="wait">
@@ -76,10 +105,7 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
             transition={{ duration: 0.3 }}
           >
             <button
-              onClick={() => {
-                setSelectedMemory(null);
-                setCurrent(0);
-              }}
+              onClick={close}
               className="absolute top-3 right-4 text-pink-600 text-2xl font-bold hover:text-pink-800 z-20"
             >
               ×
@@ -95,46 +121,94 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
-                {selectedMemory.images.map((src, index) => (
-                  <motion.img
-                    key={index}
-                    src={src}
-                    alt={`Memory ${index + 1}`}
-                    className={`absolute inset-0 w-full h-full object-contain bg-pink-600 flex justify-center items-center transition-transform duration-700 ease-in-out ${index === current
-                        ? "translate-x-0"
-                        : index < current
-                          ? "-translate-x-full"
-                          : "translate-x-full"
-                      } group-hover:scale-105`}
-                    initial={false}
-                    animate={{
-                      background: gradients[current % gradients.length],
-                    }}
-                  />
-                ))}
-                <button
-                  onClick={handlePrev}
-                  className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white/60 hover:bg-white text-pink-700 rounded-full p-2 shadow"
-                >
-                  ‹
-                </button>
-                <button
-                  onClick={handleNext}
-                  className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white/60 hover:bg-white text-pink-700 rounded-full p-2 shadow"
-                >
-                  ›
-                </button>
+                {locked && !isUnlocked ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-pink-200 to-yellow-100">
+                    {selectedMemory.cover_path ? (
+                      <img
+                        src={selectedMemory.cover_path}
+                        alt="locked cover"
+                        className="absolute inset-0 w-full h-full object-cover opacity-70"
+                      />
+                    ) : null}
 
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
-                  {selectedMemory.images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setCurrent(i)}
-                      className={`w-3 h-3 rounded-full ${current === i ? "bg-white" : "bg-white/50"
+                    <div className="relative z-10 bg-white/90 rounded-xl p-5 w-full max-w-md text-center">
+                      <h4 className="text-lg font-semibold text-gray-800 mb-2">
+                        🔐 This memory is locked
+                      </h4>
+                      <input
+                        type="password"
+                        value={inputPassword}
+                        onChange={(e) => setInputPassword(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder="Enter password"
+                        className="w-full p-2 rounded-md border border-gray-300 mb-3 text-sm text-center"
+                      />
+                      <div className="flex gap-2 justify-center">
+                        <button
+                          onClick={attemptUnlock}
+                          className="px-4 py-2 rounded-md bg-pink-600 text-white hover:bg-pink-700"
+                        >
+                          Unlock
+                        </button>
+                        <button
+                          onClick={close}
+                          className="px-4 py-2 rounded-md bg-white border border-gray-300"
+                        >
+                          Close
+                        </button>
+                      </div>
+                      {error && (
+                        <p className="mt-3 text-sm text-red-500">{error}</p>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {selectedMemory.images.map((src, index) => (
+                      <motion.img
+                        key={index}
+                        src={src}
+                        alt={`Memory ${index + 1}`}
+                        className={`absolute inset-0 w-full h-full object-contain transition-transform duration-700 ease-in-out ${
+                          index === current
+                            ? "translate-x-0"
+                            : index < current
+                            ? "-translate-x-full"
+                            : "translate-x-full"
                         }`}
-                    />
-                  ))}
-                </div>
+                        initial={false}
+                        animate={{
+                          background: gradients[current % gradients.length],
+                        }}
+                      />
+                    ))}
+
+                    <button
+                      onClick={handlePrev}
+                      className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-white/60 hover:bg-white text-pink-700 rounded-full p-2 shadow"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-white/60 hover:bg-white text-pink-700 rounded-full p-2 shadow"
+                    >
+                      ›
+                    </button>
+
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
+                      {selectedMemory.images.map((_, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setCurrent(i)}
+                          className={`w-3 h-3 rounded-full ${
+                            current === i ? "bg-white" : "bg-white/50"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

@@ -8,12 +8,7 @@ import PopUpModal from "./model/popModal";
 export default function BeautifulMemories() {
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
   const [floatHearts, setFloatHearts] = useState<floatHearts[]>([]);
-  const [selectedMemory, setSelectedMemory] = useState<null | {
-    id: number;
-    images: string[];
-    name: string;
-    caption: string;
-  }>(null);
+  const [selectedMemory, setSelectedMemory] = useState<Memo | null>(null);
 
   useEffect(() => {
     function update() {
@@ -76,6 +71,8 @@ export default function BeautifulMemories() {
                 images: memo.image_path,
                 name: memo.name,
                 caption: memo.caption,
+                auth: memo.auth,
+                password: memo.password || "",
               })
             }
           >

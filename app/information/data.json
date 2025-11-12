@@ -5,6 +5,8 @@
             "name": "Zoo Date",
             "cover_path": "/memo/zoo/zoo-cover.jpg",
             "caption": "The Day I wil never forget",
+            "auth": "false",
+            "password": "",
             "image_path" :[
                 "/memo/zoo/double.jpg",
                 "/memo/zoo/pp.jpg",
@@ -15,11 +17,14 @@
 
             ]
         },
+
         {
             "id": 2,
             "name": "Christmas Date",
             "cover_path": "/memo/christmas/christmas-cover.jpg",
             "caption": "This is my very first time celebarting Christmas!! Thanks babe",
+            "auth": "false",
+            "password": "",
             "image_path": [
                 "/memo/christmas/tree.jpg",
                 "/memo/christmas/heart-sign.jpg",
@@ -31,11 +36,14 @@
                 "/memo/christmas/santa.jpg"
             ]
         },
+
         {
             "id": 3,
             "name": "Steak Date",
             "cover_path": "/memo/steak/steak-cover.jpg",
             "caption": "This the best Day ever!!",
+            "auth": "false",
+            "password": "",
             "image_path": [
                 "/memo/steak/thinking.jpg",
                 "/memo/steak/checking.jpg",
@@ -50,6 +58,8 @@
             "name": "My Favorite Date",
             "cover_path": "/memo/dates/favorite-cover.jpg",
             "caption": "So many memorable moments with you babe.",
+            "auth": "false",
+            "password": "",
             "image_path": [
                 "/memo/dates/painting.jpg",
                 "/memo/dates/trend-one.jpg",
@@ -59,14 +69,18 @@
                 "/memo/dates/sules.jpg",
                 "/memo/dates/bubble.jpg",
                 "/memo/dates/chansain-two.jpg",
-                "/memo/dates/eating-hand.jpg"
+                "/memo/dates/eating-hand.jpg",
+                "/memo/dates/last-date-at-myanmar.jpg"
             ]
         },
+
         {
             "id": 5,
             "name": "Food Date",
             "cover_path": "/memo/food/food-cover.jpg",
             "caption": "I thought you're starving myanmar foods.",
+            "auth": "false",
+            "password": "",
             "image_path": [
                 "/memo/food/beer.jpg",
                 "/memo/food/chatramu.jpg",
@@ -94,6 +108,8 @@
             "name": "ERROR_404",
             "cover_path": "/memo/various/eye_off_cat.JPG",
             "caption": "Sorry not Sorry...",
+            "auth": "false",
+            "password": "",
             "image_path": [
                 "/memo/unknown/angry.jpg",
                 "/memo/unknown/compare.jpg",
@@ -108,7 +124,8 @@
                 "/memo/unknown/same.JPEG",
                 "/memo/unknown/sleepy.jpg",
                 "/memo/unknown/snoring.jpg",
-                "/memo/unknown/tired.jpg"
+                "/memo/unknown/tired.jpg",
+                "/memo/unknown/before-coe.jpg"
             ]
         },
 
@@ -117,6 +134,8 @@
             "name": "Messages",
             "cover_path": "/memo/messages/back.jpg",
             "caption": "The Messages between us that I want to keep forever.",
+            "auth": "false",
+            "password": "",
             "image_path": [
                 "/memo/messages/love.PNG"
             ]

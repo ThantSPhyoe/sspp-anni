@@ -13,3 +13,13 @@ interface PopHeart {
   delay: number;
   endY: number;
 }
+
+interface Memo {
+  id: number;
+  images: string[];
+  name: string;
+  caption: string;
+  cover_path?: string;
+  auth?: string | boolean;
+  password?: string;
+}
