@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Fireworks } from 'fireworks-js';
 
 interface FloatHeart {
   id: string;
