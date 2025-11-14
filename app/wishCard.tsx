@@ -25,6 +25,8 @@ export default function WishCard() {
   const [popHeartsData, setPopHeartsData] = useState<PopHeart[]>([]);
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
 
+  const bubbleSound = typeof Audio !== "undefined" ? new Audio("./sounds/bubble.mp3") : null;
+
   useEffect(() => {
     function update() {
       setSizes({ w: window.innerWidth, h: window.innerHeight });
@@ -53,6 +55,15 @@ export default function WishCard() {
     const newBatch = Array.from({ length: 40 }).map((_, i) => {
       const xOffset = (Math.random() - 0.5) * width;
       const xDrift = (Math.random() - 0.5) * 200;
+
+      if (bubbleSound) {
+        setTimeout(() => {
+          bubbleSound.currentTime = 0;
+          bubbleSound.volume = 0.3;
+          bubbleSound.play();
+        }, Math.random() * 500);
+      }
+
       return {
         id: `balloon-${Date.now()}-${i}`,
         xOffset,

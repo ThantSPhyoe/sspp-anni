@@ -66,19 +66,20 @@ export default function SpecialMessage() {
           strength, and your presence makes everything better. You are everything
           that i keep hardwork for. I hope we can  continue to open up to each other more in the coming days.
           Whatever challenges we may face, know that I will always be by your side.
-          Being apart from you is hard for me, 
-          and I’m sorry for not always trusting you because of my jealousy. 
+          Being apart from you is hard for me,
+          and I’m sorry for not always trusting you because of my jealousy.
           I hope you can understand me and my feelings.
         </p>
 
         <p className="text-base md:text-lg leading-relaxed text-white/90 text-left">
-          Just like Billie Eillish said, 
+          Just like Billie Eillish said,
           "Noting left to lose without my baby,"
           and like Keishi said,
           "I got a soft spot for you,"
 
           my love, it's the same with you- everything about you matters. It's not that I'm asking for anything,
           but your little activity messages give me comfort, and it would be nice if you keep sending them in the future.
+          If I don’t get there as fast as I hope, will your wait for me?
         </p>
 
         <p className="text-base md:text-lg leading-relaxed text-white/90 text-left mt-3">
