@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import SendKindMessage from "./sendMessage";
+import { Sen } from "next/font/google";
+import SuccessMessage from "./model/successMessage";
 
 export default function SpecialMessage() {
 
@@ -57,26 +60,39 @@ export default function SpecialMessage() {
           A Special Message for You
         </h2>
 
-        <p className="text-base md:text-lg leading-relaxed mb-6 text-white/90">
+        <p className="text-base md:text-lg leading-relaxed mb-6 text-white/90 text-left">
           On this special day, I want you to know how grateful I am to have you
           in my life. Your laughter fills my days with joy, your love gives me
-          strength, and your presence makes everything better. You are not just
-          my girlfriend, you are my best friend, my partner in crime, and the
-          love of my life.
+          strength, and your presence makes everything better. You are everything
+          that i keep hardwork for. I hope we can  continue to open up to each other more in the coming days.
+          Whatever challenges we may face, know that I will always be by your side.
+          Being apart from you is hard for me, 
+          and I’m sorry for not always trusting you because of my jealousy. 
+          I hope you can understand me and my feelings.
         </p>
 
-        <p className="text-base md:text-lg leading-relaxed text-white/90">
-          Today, we celebrate you – your kindness, beauty, amazing spirit, and
-          everything that makes you unique. I hope this new year of your life
-          brings you endless happiness, incredible adventures, and all your
-          dreams come true.
+        <p className="text-base md:text-lg leading-relaxed text-white/90 text-left">
+          Just like Billie Eillish said, 
+          "Noting left to lose without my baby,"
+          and like Keishi said,
+          "I got a soft spot for you,"
+
+          my love, it's the same with you- everything about you matters. It's not that I'm asking for anything,
+          but your little activity messages give me comfort, and it would be nice if you keep sending them in the future.
+        </p>
+
+        <p className="text-base md:text-lg leading-relaxed text-white/90 text-left mt-3">
+          Thank you for being my rock, my confidant, and my greatest love. Here’s
+          to many more months and years of happiness together. I love you more
+          than words can express.
         </p>
 
         <p className="font-satisfy text-yellow-300 mt-6 text-xl">
-          Happy Birthday, my love! Here’s to more years of laughter, love, and
-          beautiful memories together. 💕
+          Happy 1 year & 3 months, my baby! Here’s to more years of laughter, love, and
+          beautiful memories together. Miss You My Baby 💕
         </p>
       </motion.div>
+      <SendKindMessage />
     </div>
   );
 }

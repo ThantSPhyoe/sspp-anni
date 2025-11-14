@@ -20,7 +20,7 @@ interface PopHeart {
   endY: number;
 }
 
-export default function BirthdayCard() {
+export default function WishCard() {
   const [floatHearts, setFloatHearts] = useState<FloatHeart[]>([]);
   const [popHeartsData, setPopHeartsData] = useState<PopHeart[]>([]);
   const [sizes, setSizes] = useState({ w: 0, h: 0 });
@@ -114,7 +114,7 @@ export default function BirthdayCard() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        Happy 12th Anniversary, My Baby!
+        Happy 1 Year & 3 Months Anniversary, My Baby!
       </motion.h1>
 
       <motion.p
