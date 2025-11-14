@@ -10,7 +10,7 @@ const satisfy = Satisfy({
 });
 
 export const metadata: Metadata = {
-  title: "! Year And 3 Months Anniversary Celebration",
+  title: "1 Year And 3 Months Anniversary Celebration",
   description: "A special celebration for my beloved on our anniversary.",
   icons: {
     icon: "/cover/ours-shadow.jpg",

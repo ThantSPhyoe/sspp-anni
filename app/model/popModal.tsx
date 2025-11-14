@@ -23,6 +23,19 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
     setIsUnlocked(false);
   }, [selectedMemory]);
 
+  useEffect(() => {
+    if (selectedMemory) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedMemory]);
+
+
   if (!selectedMemory) return null;
 
   const locked = selectedMemory.auth === true || selectedMemory.auth === "true";
@@ -112,10 +125,9 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
             </button>
 
             <div className="p-4">
-              <h3 className="text-center text-2xl font-satisfy text-pink-600 mb-4">
+              <h3 className="text-center text-2xl font-satisfy text-pink-600 mb-4 p-0.5">
                 {selectedMemory.caption}
               </h3>
-
               <div
                 className="relative w-full h-80 overflow-hidden rounded-xl select-none"
                 onTouchStart={handleTouchStart}
@@ -169,13 +181,12 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
                         key={index}
                         src={src}
                         alt={`Memory ${index + 1}`}
-                        className={`absolute inset-0 w-full h-full object-contain transition-transform duration-700 ease-in-out ${
-                          index === current
+                        className={`absolute inset-0 w-full h-full object-contain transition-transform duration-700 ease-in-out ${index === current
                             ? "translate-x-0"
                             : index < current
-                            ? "-translate-x-full"
-                            : "translate-x-full"
-                        }`}
+                              ? "-translate-x-full"
+                              : "translate-x-full"
+                          }`}
                         initial={false}
                         animate={{
                           background: gradients[current % gradients.length],
@@ -201,9 +212,8 @@ export default function PopUpModal({ selectedMemory, setSelectedMemory }: ModalP
                         <button
                           key={i}
                           onClick={() => setCurrent(i)}
-                          className={`w-3 h-3 rounded-full ${
-                            current === i ? "bg-white" : "bg-white/50"
-                          }`}
+                          className={`w-3 h-3 rounded-full ${current === i ? "bg-white" : "bg-white/50"
+                            }`}
                         />
                       ))}
                     </div>

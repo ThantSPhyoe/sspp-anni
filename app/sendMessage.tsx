@@ -8,12 +8,15 @@ import SuccessMessage from "./model/successMessage";
 export default function SendKindMessage() {
   const [text, setText] = useState("");
   const [isOpenSuccessModal, setIsOpenSuccessModal] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const [bodyText, setBodyText] = useState("Your sweet message has reached your beloved. May it bring a smile to their heart!");
   const [headerText, setHeaderText] = useState("Your Love Has Been Sent 💌");
 
 
   async function sendMessage() {
     if (!text.trim()) return;
+
+    setIsSending(true);
 
     const response = await api.postWithoutAuth({
       endPoint: "/sendMessage",
@@ -24,9 +27,12 @@ export default function SendKindMessage() {
     if (response.status === 200) {
       setIsOpenSuccessModal(true);
       setText("");
+      setIsSending(false);
     }else {
+      setIsOpenSuccessModal(true);
       setHeaderText("Oops! Something Went Wrong 💔");
       setBodyText("Your love couldn’t be delivered this time. Try again and send your heart once more!");
+      setIsSending(false);
     }
   }
 
@@ -54,6 +60,7 @@ export default function SendKindMessage() {
         <button
           onClick={sendMessage}
           className="mt-4 w-full bg-pink-500 hover:bg-pink-600 text-white font-semibold py-2 rounded-xl transition-colors duration-300 shadow-md"
+          disabled={isSending}
         >
           Send My Love 💌
         </button>
